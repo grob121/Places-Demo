@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F5B50002231E381900943B0B /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B50001231E381900943B0B /* RequestHelper.swift */; };
+		F5B50009231E3CE500943B0B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B50008231E3CE500943B0B /* Place.swift */; };
+		F5B50019231EAC2700943B0B /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B50018231EAC2700943B0B /* CustomAnnotation.swift */; };
+		F5B5001B231F65FE00943B0B /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B5001A231F65FE00943B0B /* CustomAnnotationView.swift */; };
 		F5B5FFDE231DFE2300943B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B5FFDD231DFE2300943B0B /* AppDelegate.swift */; };
-		F5B5FFE0231DFE2300943B0B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B5FFDF231DFE2300943B0B /* ViewController.swift */; };
+		F5B5FFE0231DFE2300943B0B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B5FFDF231DFE2300943B0B /* MapViewController.swift */; };
 		F5B5FFE3231DFE2300943B0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5B5FFE1231DFE2300943B0B /* Main.storyboard */; };
 		F5B5FFE6231DFE2300943B0B /* Places_Demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5B5FFE4231DFE2300943B0B /* Places_Demo.xcdatamodeld */; };
 		F5B5FFE8231DFE2B00943B0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5B5FFE7231DFE2B00943B0B /* Assets.xcassets */; };
@@ -27,9 +31,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F5B50001231E381900943B0B /* RequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
+		F5B50008231E3CE500943B0B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		F5B50018231EAC2700943B0B /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		F5B5001A231F65FE00943B0B /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		F5B5FFDA231DFE2300943B0B /* Places Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Places Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5B5FFDD231DFE2300943B0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F5B5FFDF231DFE2300943B0B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F5B5FFDF231DFE2300943B0B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F5B5FFE2231DFE2300943B0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F5B5FFE5231DFE2300943B0B /* Places_Demo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Places_Demo.xcdatamodel; sourceTree = "<group>"; };
 		F5B5FFE7231DFE2B00943B0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,6 +66,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F5B50000231E373900943B0B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F5B50001231E381900943B0B /* RequestHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F5B50003231E3BEA00943B0B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F5B50008231E3CE500943B0B /* Place.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F5B50004231E3BF100943B0B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F5B50018231EAC2700943B0B /* CustomAnnotation.swift */,
+				F5B5001A231F65FE00943B0B /* CustomAnnotationView.swift */,
+				F5B5FFE1231DFE2300943B0B /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F5B50005231E3BFC00943B0B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F5B5FFDF231DFE2300943B0B /* MapViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		F5B5FFD1231DFE2300943B0B = {
 			isa = PBXGroup;
 			children = (
@@ -79,9 +121,11 @@
 		F5B5FFDC231DFE2300943B0B /* Places Demo */ = {
 			isa = PBXGroup;
 			children = (
+				F5B50003231E3BEA00943B0B /* Model */,
+				F5B50004231E3BF100943B0B /* View */,
+				F5B50005231E3BFC00943B0B /* Controller */,
+				F5B50000231E373900943B0B /* Helper */,
 				F5B5FFDD231DFE2300943B0B /* AppDelegate.swift */,
-				F5B5FFDF231DFE2300943B0B /* ViewController.swift */,
-				F5B5FFE1231DFE2300943B0B /* Main.storyboard */,
 				F5B5FFE7231DFE2B00943B0B /* Assets.xcassets */,
 				F5B5FFE9231DFE2B00943B0B /* LaunchScreen.storyboard */,
 				F5B5FFEC231DFE2B00943B0B /* Info.plist */,
@@ -201,8 +245,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5B5FFE6231DFE2300943B0B /* Places_Demo.xcdatamodeld in Sources */,
-				F5B5FFE0231DFE2300943B0B /* ViewController.swift in Sources */,
+				F5B5FFE0231DFE2300943B0B /* MapViewController.swift in Sources */,
 				F5B5FFDE231DFE2300943B0B /* AppDelegate.swift in Sources */,
+				F5B50002231E381900943B0B /* RequestHelper.swift in Sources */,
+				F5B50009231E3CE500943B0B /* Place.swift in Sources */,
+				F5B5001B231F65FE00943B0B /* CustomAnnotationView.swift in Sources */,
+				F5B50019231EAC2700943B0B /* CustomAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
