@@ -18,6 +18,8 @@
 		F5B5FFE8231DFE2B00943B0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5B5FFE7231DFE2B00943B0B /* Assets.xcassets */; };
 		F5B5FFEB231DFE2B00943B0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5B5FFE9231DFE2B00943B0B /* LaunchScreen.storyboard */; };
 		F5B5FFF6231DFE2B00943B0B /* Places_DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B5FFF5231DFE2B00943B0B /* Places_DemoTests.swift */; };
+		F5F5F1182320D43800AEC169 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5F1172320D43800AEC169 /* Coordinates.swift */; };
+		F5F5F11A2320E15200AEC169 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5F1192320E15200AEC169 /* CoreDataHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		F5B5FFF1231DFE2B00943B0B /* Places DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Places DemoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5B5FFF5231DFE2B00943B0B /* Places_DemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places_DemoTests.swift; sourceTree = "<group>"; };
 		F5B5FFF7231DFE2B00943B0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5F5F1172320D43800AEC169 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
+		F5F5F1192320E15200AEC169 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				F5B50001231E381900943B0B /* RequestHelper.swift */,
+				F5F5F1192320E15200AEC169 /* CoreDataHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -125,11 +130,11 @@
 				F5B50004231E3BF100943B0B /* View */,
 				F5B50005231E3BFC00943B0B /* Controller */,
 				F5B50000231E373900943B0B /* Helper */,
+				F5F5F1102320CFF500AEC169 /* Core Data */,
 				F5B5FFDD231DFE2300943B0B /* AppDelegate.swift */,
 				F5B5FFE7231DFE2B00943B0B /* Assets.xcassets */,
 				F5B5FFE9231DFE2B00943B0B /* LaunchScreen.storyboard */,
 				F5B5FFEC231DFE2B00943B0B /* Info.plist */,
-				F5B5FFE4231DFE2300943B0B /* Places_Demo.xcdatamodeld */,
 			);
 			path = "Places Demo";
 			sourceTree = "<group>";
@@ -141,6 +146,15 @@
 				F5B5FFF7231DFE2B00943B0B /* Info.plist */,
 			);
 			path = "Places DemoTests";
+			sourceTree = "<group>";
+		};
+		F5F5F1102320CFF500AEC169 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				F5B5FFE4231DFE2300943B0B /* Places_Demo.xcdatamodeld */,
+				F5F5F1172320D43800AEC169 /* Coordinates.swift */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +264,9 @@
 				F5B50002231E381900943B0B /* RequestHelper.swift in Sources */,
 				F5B50009231E3CE500943B0B /* Place.swift in Sources */,
 				F5B5001B231F65FE00943B0B /* CustomAnnotationView.swift in Sources */,
+				F5F5F11A2320E15200AEC169 /* CoreDataHelper.swift in Sources */,
 				F5B50019231EAC2700943B0B /* CustomAnnotation.swift in Sources */,
+				F5F5F1182320D43800AEC169 /* Coordinates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

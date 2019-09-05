@@ -14,6 +14,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
+    let coreDataHelper = CoreDataHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +28,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     /**
      Request permission if your app's authorization status is not yet determined.
      
-     Calling this method lets the user choose whether to grant the request for always authorization or to leave your app with when-in-use authorization.
+     Calling this method lets the user choose whether to grant the request for always authorization or when-in-use authorization and shows an alert when location services is denied or restricted.
      */
     func requestLocationAuthorization() {
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+        case .denied, .restricted:
+            showAlert(title: "Location Services disabled", message: "Please enable Location Services in Settings.", action: "OK")
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        @unknown default:
+            break
+        }
     }
     
     func getUserLocation() {
@@ -39,20 +50,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
+        } else {
+            guard let coordinates = coreDataHelper.fetchCoordinates() else { return }
+            showAlert(title: "Location Services disabled", message: "Showing your last known location.", action: "OK")
+            showUserLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        let centerCoordinate = CLLocationCoordinate2D(latitude: locationValue.latitude, longitude: locationValue.longitude)
-      
-        mapView.showsUserLocation = true
-        mapView.removeAnnotations(mapView.annotations)
-        getTopPlaces(locationValue: centerCoordinate)
+        coreDataHelper.save(latitude: locationValue.latitude, longitude: locationValue.longitude)
+        showUserLocation(latitude: locationValue.latitude, longitude: locationValue.longitude)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Unable to access current location")
+        guard let coordinates = coreDataHelper.fetchCoordinates() else { return }
+        showAlert(title: "Unable to access current location", message: "Showing your last known location.", action: "OK")
+        showUserLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+    }
+    
+    func showUserLocation(latitude: Double, longitude: Double) {
+        let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        mapView.showsUserLocation = true
+        mapView.removeAnnotations(mapView.annotations)
+        getTopPlaces(locationValue: centerCoordinate)
     }
     
     // MARK: - MKMapView
@@ -102,3 +123,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 }
 
+extension UIViewController {
+    
+    func showAlert(title: String, message: String, action: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: action, style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+}

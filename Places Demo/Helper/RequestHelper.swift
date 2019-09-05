@@ -11,27 +11,30 @@ import CoreLocation
 
 class RequestHelper {
     
-     func downloadAnnotationImage(fromURL URLString: String, completion: @escaping (Data?) -> Void) {
-        
+    func downloadAnnotationImage(fromURL URLString: String, completion: @escaping (Data?) -> Void) {
         let baseURL = URL(string: URLString)!
         let request = URLRequest(url: baseURL)
+        let cache =  URLCache.shared
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            if let data = data {
-                completion(data)
-            } else {
-                completion(nil)
-                print("No data was returned.")
-                return
+        if let data = cache.cachedResponse(for: request)?.data {
+            completion(data)
+        } else {
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let data = data, let response = response {
+                    let cachedData = CachedURLResponse(response: response, data: data)
+                    cache.storeCachedResponse(cachedData, for: request)
+                    completion(data)
+                } else {
+                    completion(nil)
+                    print("No data was returned.")
+                    return
+                }
             }
+            task.resume()
         }
-        task.resume()
     }
     
-    
     func getTopPlaces(nearMe locationValue: CLLocationCoordinate2D, completion: @escaping ([Place]?) -> Void) {
-        
         let baseURL = URL(string: "https://places.cit.api.here.com/places/v1/discover/explore?")!
         let queries: [String: String] = [
             "app_id":"DemoAppId01082013GAL",
@@ -39,7 +42,6 @@ class RequestHelper {
             "size":"10",
             "pretty":"true"
         ]
-        
         guard let url = baseURL.withQueries(queries) else {
             completion(nil)
             print("Unable to build URL with supplied queries.")
@@ -52,9 +54,7 @@ class RequestHelper {
         request.setValue("geo:\(locationValue.latitude),\(locationValue.longitude)", forHTTPHeaderField: "Geolocation")
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
             let jsonDecoder = JSONDecoder()
-            
             if let data = data,
                 let jsonDict = try? jsonDecoder.decode(Json.self, from: data) {
                 completion(jsonDict.results.items)
@@ -69,11 +69,9 @@ class RequestHelper {
 }
 
 extension URL {
-    
     func withQueries(_ queries: [String: String]) -> URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         components?.queryItems = queries.compactMap { URLQueryItem(name: $0.0, value: $0.1)}
         return components?.url
     }
 }
-
