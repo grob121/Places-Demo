@@ -10,6 +10,14 @@
 import Foundation
 import CoreData
 
+/**
+ This is a custom object representing Coordinates entity in Core Data.
+ 
+ The attributes for this object:
+ 
+ - latitude: The latitude coordinate of the user
+ - longitude: The longitude coordinate of the user
+ */
 @objc(Coordinates)
 class Coordinates: NSManagedObject, Codable {
     
@@ -17,7 +25,6 @@ class Coordinates: NSManagedObject, Codable {
         case latitude
         case longitude
     }
-    
     @NSManaged var latitude: Double
     @NSManaged var longitude: Double
     

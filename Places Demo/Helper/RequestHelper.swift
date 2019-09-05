@@ -9,6 +9,11 @@
 import Foundation
 import CoreLocation
 
+/**
+ This intends to provide a more convenient way of connecting the app to external services and obtaining necessary information from the data sources which will be then used to display it to the user.
+ 
+ downloadAnnotation method uses the URLString parameter to extract the image data. The image data is also cached to load the images faster in the map by using the existing image data previously stored in cache and avoiding a new URLSession to download the same image data. getTopPlaces method returns the top ten places around the user's location by feeding the parameter with the value of user location in coordinates and setting the right parameters and header fields for the request.
+ */
 class RequestHelper {
     
     func downloadAnnotationImage(fromURL URLString: String, completion: @escaping (Data?) -> Void) {
@@ -68,6 +73,9 @@ class RequestHelper {
     }
 }
 
+/**
+ Extension of URL to define a method to translate the parameters formatted in a dictionary to a parameter built with the base URL.
+ */
 extension URL {
     func withQueries(_ queries: [String: String]) -> URL? {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)

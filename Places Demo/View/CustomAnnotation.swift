@@ -9,6 +9,16 @@
 import UIKit
 import MapKit
 
+/**
+ Initializes a custom annotation that will be used to display the necessary data on the map
+ 
+ The attributes for this object:
+ 
+ - coordinate: The coordinates of the place
+ - title: The title displayed when clicked
+ - subtitle: The subtitle displayed when clicked
+ - imageUrl: The url of the icon to be used for its image
+ */
 class CustomAnnotation: NSObject, MKAnnotation {
     
     var coordinate: CLLocationCoordinate2D

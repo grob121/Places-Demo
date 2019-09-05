@@ -9,6 +9,11 @@
 import UIKit
 import MapKit
 
+/**
+ Creates a custom class for MKAnnotaionView
+ 
+ After initialization, it utilizes the RequestHelper function to download the image from the web which will be later used as its image.
+ */
 class CustomAnnotationView: MKAnnotationView {
     
     required init?(coder aDecoder: NSCoder) {

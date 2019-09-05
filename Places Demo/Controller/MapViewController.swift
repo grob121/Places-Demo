@@ -18,7 +18,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         requestLocationAuthorization()
         getUserLocation()
     }
@@ -45,6 +45,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    /**
+     Define location manager settings or fetch from the stored location data to display the location of the user.
+     
+     Location manager set delegate, desired accuracy attribute and starts updating location if the location services is enabled. If the location services is found to be disabled, it tries to fetch saved location from Core Data and displays it as last known location of the user.
+     */
     func getUserLocation() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -59,16 +64,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        
+        // Show user's current location and save it in Core Data
         coreDataHelper.save(latitude: locationValue.latitude, longitude: locationValue.longitude)
         showUserLocation(latitude: locationValue.latitude, longitude: locationValue.longitude)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         guard let coordinates = coreDataHelper.fetchCoordinates() else { return }
+        
+        // If the location manager fails to access user's current location, it tries to fetch saved location from Core Data and displays it as last known location.
         showAlert(title: "Unable to access current location", message: "Showing your last known location.", action: "OK")
         showUserLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
     }
     
+    /**
+     Display the location of the user in map by a blue round marker. It also removes annotation to clear the map for the new top places to be plotted.
+     
+     This custom function shows the user location provided by the other functions, clears the map annotations and feeds the location coordinate to the method that extracts the top places around its location.
+     
+     - Parameter latitude: The latitude coordinate of user.
+     - Parameter longitude: The longitude coordinate of user.
+     */
     func showUserLocation(latitude: Double, longitude: Double) {
         let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapView.showsUserLocation = true
@@ -116,15 +133,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is CustomAnnotation else { return nil }
+        
+        // Creates an instance of CustomAnnotationView to format annotations and display it on the map
         let annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: "Annotation")
         annotationView.canShowCallout = true
 
         return annotationView
     }
-}
-
-extension UIViewController {
     
+    // MARK: - UIAlertView
+    
+    /**
+     This method acts like a helper to show an alert with a single default action.
+     
+     UIAlertController is initialized with the parameters and then presented to the view.
+     
+     - Parameter title: The title of the UIAlertController instance.
+     - Parameter message: The message of the UIAlertController instance.
+     - Parameter action: The title of action of the UIAlertController instance.
+     */
     func showAlert(title: String, message: String, action: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: action, style: .default, handler: nil))
